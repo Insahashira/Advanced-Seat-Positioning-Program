@@ -1,4 +1,3 @@
-//import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -60,56 +59,86 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Feel So Good'),
+          title: Text('Advanced Seat Positioning Program'),
         ),
         body:
         Column(
-    children: [
-      Container(
-        height: 75,
-        child: Text('칠판',
-            style: TextStyle(fontSize:30,fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,),
-      ),
-      GridView.count(
-          shrinkWrap: true,
-        crossAxisCount: 5,
-        childAspectRatio: (10/ 4),
-        children: [
-          for(var i in widgetlist) widget_test(i)
-        ]
-      ),
-      TextField(
-          controller: seat_list[25],
-          textInputAction: TextInputAction.done,
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(30, 3, 30, 0)
-          ),
-          onSubmitted: (val) async {
-            setState(() {
-              String name = seat_list[25].text;
-              seat[25] = name;
-              seat.forEach((key, value) {
-                print('key: $key, value: $value');
-              });
-            });
-          }
-      ),
-      ElevatedButton(
-        onPressed: (){
-          setState(() {
-            String input = seat_list[25].text;
-            main_head(input);
-            seat.forEach((key, value) {
-              print('key: $key, value: $value');
-            });
-          });
-        },
-        child: Text('Update'),
-      )
-    ]
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                child: Text('칠판',
+                  style: TextStyle(fontSize:30,fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,),
+              ),
+              GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 5,
+                  childAspectRatio: (10/ 4),
+                  children: [
+                    for(var i in widgetlist) widget_test(i)
+                  ]
+              ),
+
+              Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.black, width: 2.5)
+                  ),
+                child: Column(
+                children: [
+                  SizedBox(
+                    height:10,
+                    width: 500,
+                  ),
+                SizedBox(
+                  width:450,
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    controller: seat_list[25],
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20, 3, 30, 0)
+                    ),
+                    onSubmitted: (val) async {
+                      setState(() {
+                        String name = seat_list[25].text;
+                        seat[25] = name;
+                        seat.forEach((key, value) {
+                          print('key: $key, value: $value');
+                        });
+                      });
+                    }
+                  )
+                ),
+                  SizedBox(
+                    height:10,
+                  ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(0,0,0,10),
+                width: 450,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: (){
+                  setState(() {
+                    String input = seat_list[25].text;
+                    main_head(input);
+                    seat.forEach((key, value) {
+                      print('key: $key, value: $value');
+                    });
+                  });
+                },
+                child: Text('뽑기',
+                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              )
     )
-        );
+        ]
+              )
+              )
+            ]
+        )
+    );
   }
 }
 
@@ -130,67 +159,70 @@ class _widget_testState extends State<widget_test> {
   Widget build(BuildContext context) {
 
     return Container(
-      margin: EdgeInsets.fromLTRB(20,7,20,7),
+        margin: EdgeInsets.fromLTRB(20,14,20,0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             border: Border.all(color: Colors.black, width: 3)
         ),
         child:
-            Column(
-          children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-                '${widget.position}.${seat[widget.position]}',
-                style: TextStyle(fontSize:25,fontWeight: FontWeight.bold)
+            Column(
+                children: [
+                  Text(
+                      '${widget.position}.${seat[widget.position]}',
+                      style: TextStyle(fontSize:25,fontWeight: FontWeight.bold)
+                  ),
+                ]
             ),
-        ]
-          ),
             SizedBox(
-              height:10
-            ),
-            TextField(
-              controller: seat_list[widget.position],
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 0),
-                labelText: '이름 입력',
-                hintText: '',
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+              width: 220,
+            child: TextField(
+                style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+                controller: seat_list[widget.position],
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 0),
+                  labelText: '이름 입력',
+                  hintText: '',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(width: 1, color: Colors.blueAccent),
 
+                  ),
                 ),
-              ),
-              textInputAction: TextInputAction.done,
-               onSubmitted: (val) async {
-                 setState(() {
-                   String name = seat_list[widget.position].text;
-                   seat[widget.position] = name;
-                   seat.forEach((key, value) {
-                     print('key: $key, value: $value');
-                   });
-                });
-                 }
-              )
-      ],
+                textInputAction: TextInputAction.done,
+                onSubmitted: (val) async {
+                  setState(() {
+                    String name = seat_list[widget.position].text;
+                    seat[widget.position] = name;
+                    seat.forEach((key, value) {
+                      print('key: $key, value: $value');
+                    });
+                  });
+                }
+            )
+            )
+          ],
         )
     );
   }
 }
 
 main_head (you){
-    number_control(seat, you);
-    seat.forEach((key, value) {
-      print('key: $key, value: $value');
-    });
+  number_control(seat, you);
+  seat.forEach((key, value) {
+    print('key: $key, value: $value');
+  });
   seat.forEach((key, value) {
     print('key: $key, value: $value');
   });
